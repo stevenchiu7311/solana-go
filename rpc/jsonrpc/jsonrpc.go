@@ -514,6 +514,13 @@ func (client *rpcClient) newRequest(ctx context.Context, req any) (*http.Request
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Accept", "application/json")
 
+	headerMap := GetContextRequestHeader(ctx)
+	if headerMap != nil {
+		for k, v := range headerMap {
+			request.Header.Set(k, v)
+		}
+	}
+
 	// CustomHeaders (legacy, single-value) is applied first so that even
 	// Content-Type and Accept can be overwritten by callers that need to.
 	for k, v := range client.customHeaders {
