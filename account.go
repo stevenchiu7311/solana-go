@@ -101,7 +101,7 @@ func (a AccountMeta) less(act *AccountMeta) bool {
 		return a.IsWritable
 	}
 
-	return bytes.Compare(a.PublicKey[:], act.PublicKey[:]) < 0
+	return compareString(a.PublicKey.String(), act.PublicKey.String()) == -1
 }
 
 type AccountMetaSlice []*AccountMeta
